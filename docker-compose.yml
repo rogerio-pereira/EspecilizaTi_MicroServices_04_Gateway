@@ -1,0 +1,36 @@
+version: "3.7"
+services: 
+    #Micro service gateway
+    micro_04_gateway:
+        build: 
+            args: 
+                user: micro_01      #Will be used in Dockerfile
+                uid: 1000           #Will be used in Dockerfile
+            context: ./
+            dockerfile: Dockerfile
+        image: laravel-app
+        #command: "php artisan serve"   #This could be done but is not a good practice
+        restart: unless-stopped
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+        networks:
+            - gateway
+
+    #nginx
+    nginx:
+        image: nginx:alpine
+        restart: unless-stopped
+        ports:
+            - 8006:80
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/:/etc/nginx/conf.d     #if using apache ./docker/apache:/etc/apache2/sites-available/, create the conf file
+        networks:
+            - gateway
+
+networks:
+    gateway:
+        driver: bridge    
+
+        
