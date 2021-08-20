@@ -42,7 +42,7 @@ class CompanyService
                     ->response($response);
     }
 
-    public function getCompany($uuid)
+    public function getCompany(string $uuid)
     {
         $response = $this->http
                         ->get($this->url.'/'.$uuid);
@@ -53,7 +53,21 @@ class CompanyService
                                 );
     }
 
-    public function deleteCompany($uuid)
+    public function updateCompany(string $uuid, array $params = [])
+    {
+        $response = $this->http
+                        ->put(
+                                $this->url.'/'.$uuid,
+                                $params
+                            );
+
+        return response()->json(
+                                    json_decode($response->body()),
+                                    $response->status()                        
+                                );
+    }
+
+    public function deleteCompany(string $uuid)
     {
         $response = $this->http
                         ->delete($this->url.'/'.$uuid);

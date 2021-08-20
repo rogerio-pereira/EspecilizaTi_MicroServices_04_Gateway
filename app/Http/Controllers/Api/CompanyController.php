@@ -30,6 +30,11 @@ class CompanyController extends Controller
         return $this->companyService->getCompany($uuid);
     }
 
+    public function update(Request $request, string $uuid)
+    {
+        return $this->companyService->updateCompany($uuid, $request->all());
+    }
+
     public function destroy(string $uuid)
     {
         return $this->companyService->deleteCompany($uuid);
