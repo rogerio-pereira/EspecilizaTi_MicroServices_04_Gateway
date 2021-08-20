@@ -24,4 +24,9 @@ class CompanyController extends Controller
     {
         return $this->companyService->newCompany($request->all());
     }
+
+    public function show(string $uuid)
+    {
+        return $this->companyService->getCompany($uuid);
+    }
 }

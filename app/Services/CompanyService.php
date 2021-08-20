@@ -14,7 +14,7 @@ class CompanyService
     public function __construct(DefaultResponse $defaultResponse)
     {
         $this->defaultResponse = $defaultResponse;
-        $this->url = config('microservice.available.micro_01.url');
+        $this->url = config('microservice.available.micro_01.url').'/companies'; 
         $this->http = Http::acceptJson();
     }
 
@@ -22,7 +22,7 @@ class CompanyService
     {
         $response = $this->http
                         ->get(
-                            $this->url.'/companies',
+                            $this->url,
                             $params
                         );
 
@@ -34,11 +34,22 @@ class CompanyService
     {
         $response = $this->http
                         ->post(
-                            $this->url.'/companies',
+                            $this->url,
                             $params
                         );
 
         return $this->defaultResponse
                     ->response($response);
+    }
+
+    public function getCompany($uuid)
+    {
+        $response = $this->http
+                        ->get($this->url.'/'.$uuid);
+
+        return response()->json(
+                                    json_decode($response->body()),
+                                    $response->status()                        
+                                );
     }
 }
