@@ -52,4 +52,15 @@ class CompanyService
                                     $response->status()                        
                                 );
     }
+
+    public function deleteCompany($uuid)
+    {
+        $response = $this->http
+                        ->delete($this->url.'/'.$uuid);
+
+        return response()->json(
+                                    json_decode($response->body()),
+                                    $response->status()                        
+                                );
+    }
 }

@@ -29,4 +29,9 @@ class CompanyController extends Controller
     {
         return $this->companyService->getCompany($uuid);
     }
+
+    public function destroy(string $uuid)
+    {
+        return $this->companyService->deleteCompany($uuid);
+    }
 }
