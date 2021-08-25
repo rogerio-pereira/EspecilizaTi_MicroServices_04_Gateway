@@ -2,12 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\{
-    CompanyController
+    CompanyController,
+    EvaluationController
 };
 
 Route::get('/', function(){
     return response()->json(['message' => 'success']);
 });
+
+Route::post('companies/{uuid}/evaluations', [EvaluationController::class, 'store']);
 
 Route::get('companies', [CompanyController::class, 'index']);
 Route::post('companies', [CompanyController::class, 'store']);
