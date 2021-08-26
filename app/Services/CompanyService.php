@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Utils\DefaultResponse;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
 
 class CompanyService
@@ -30,8 +31,15 @@ class CompanyService
                     ->response($response);
     }
 
-    public function newCompany(array $params = [])
+    public function newCompany(array $params = [], UploadedFile $image = null)
     {
+        if($image)
+            $this->http->attach(
+                                    'image',
+                                    file_get_contents($image->getPathname()),
+                                    $image->getClientOriginalName()                  
+                                );
+
         $response = $this->http
                         ->post(
                             $this->url,
@@ -53,8 +61,15 @@ class CompanyService
                                 );
     }
 
-    public function updateCompany(string $uuid, array $params = [])
+    public function updateCompany(string $uuid, array $params = [], UploadedFile $image = null)
     {
+        if($image)
+            $this->http->attach(
+                                    'image',
+                                    file_get_contents($image->getPathname()),
+                                    $image->getClientOriginalName()                  
+                                );
+
         $response = $this->http
                         ->put(
                                 $this->url.'/'.$uuid,

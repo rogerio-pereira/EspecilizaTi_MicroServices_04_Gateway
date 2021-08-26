@@ -22,7 +22,10 @@ class CompanyController extends Controller
 
     public function store(Request $request)
     {
-        return $this->companyService->newCompany($request->all());
+        return $this->companyService->newCompany(
+                                                    $request->all(),
+                                                    $request->image
+                                                );
     }
 
     public function show(string $uuid)
@@ -32,7 +35,11 @@ class CompanyController extends Controller
 
     public function update(Request $request, string $uuid)
     {
-        return $this->companyService->updateCompany($uuid, $request->all());
+        return $this->companyService->updateCompany(
+                                                        $uuid, 
+                                                        $request->all(),
+                                                        $request->image
+                                                    );
     }
 
     public function destroy(string $uuid)
