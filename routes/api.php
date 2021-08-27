@@ -6,10 +6,13 @@ use App\Http\Controllers\Api\{
     CompanyController,
     EvaluationController
 };
+use App\Http\Controllers\Api\Auth\RegisterController;
 
 Route::get('/', function(){
     return response()->json(['message' => 'success']);
 });
+
+Route::post('/register', [RegisterController::class, 'register']);
 
 // Route::get('/companies', [CompanyController::class, 'index']);
 // Route::post('/companies', [CompanyController::class, 'store']);
@@ -21,3 +24,4 @@ Route::post('/companies/{uuid}/evaluations', [EvaluationController::class, 'stor
 Route::apiResource('/companies', CompanyController::class);
 
 Route::apiResource('/categories', CategoryController::class);
+
