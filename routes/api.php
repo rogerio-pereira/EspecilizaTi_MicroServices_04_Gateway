@@ -4,15 +4,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\{
     CategoryController,
     CompanyController,
-    EvaluationController
+    EvaluationController,
 };
-use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\Auth\{
+    RegisterController,
+    AuthController
+};
 
 Route::get('/', function(){
     return response()->json(['message' => 'success']);
 });
 
 Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/me', [AuthController::class, 'me']);
+Route::post('/logout', [AuthController::class, 'logout']);
 
 // Route::get('/companies', [CompanyController::class, 'index']);
 // Route::post('/companies', [CompanyController::class, 'store']);
